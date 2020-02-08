@@ -27,9 +27,6 @@ public:
     void descifrar(std::string cifrado_);
     void write();
 
-    // void set_entrada(std::string entrada_) { entrada = entrada_; };
-    // void set_cifrado(std::string cifrado_) { mensaje_cifrado = cifrado_; };
-
     std::string get_mensaje_cifrado();
     std::string get_mensaje_descifrado();
 
