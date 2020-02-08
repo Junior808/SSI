@@ -1,7 +1,8 @@
 #include "Vernam.hpp"
 
-void Vernam::cifrar()
+void Vernam::cifrar(std::string entrada_)
 {
+    entrada = entrada_;
     convertir_binario(entrada);
 
     // Clave en binario.
@@ -26,8 +27,9 @@ void Vernam::cifrar()
     mensaje_cifrado = convertir_binario_string(mensaje_cifrado_binario);
 }
 
-void Vernam::descifrar()
+void Vernam::descifrar(std::string cifrado_)
 {
+    mensaje_cifrado = cifrado_;
     convertir_binario(mensaje_cifrado);
 
     // Clave en binario.
@@ -57,6 +59,16 @@ void Vernam::write()
     std::cout << "Write binario: " << mensaje_cifrado_binario << "\n";
     std::cout << "Write cifrado: " << mensaje_cifrado << "\n";
     std::cout << "Write descifrado: " << mensaje_descifrado << "\n";
+}
+
+std::string Vernam::get_mensaje_cifrado()
+{
+    return mensaje_cifrado;
+}
+
+std::string Vernam::get_mensaje_descifrado()
+{
+    return mensaje_descifrado;
 }
 
 void Vernam::convertir_binario(std::string entrada_)

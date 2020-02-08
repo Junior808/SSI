@@ -14,18 +14,23 @@ private:
     std::string mensaje_descifrado_binario;
     std::string mensaje_descifrado;
 
-
-
-
     std::vector<std::string> binario;
 
 public:
     Vernam(std::string entrada_, std::string clave_) : entrada(entrada_), clave(clave_){};
+    Vernam(std::string clave_): clave(clave_){};
+
     ~Vernam(){};
 
-    void cifrar();
-    void descifrar();
+    void cifrar(std::string entrada_);
+    void descifrar(std::string cifrado_);
     void write();
+
+    // void set_entrada(std::string entrada_) { entrada = entrada_; };
+    // void set_cifrado(std::string cifrado_) { mensaje_cifrado = cifrado_; };
+
+    std::string get_mensaje_cifrado();
+    std::string get_mensaje_descifrado();
 
 private:
     void convertir_binario(std::string entrada_);
