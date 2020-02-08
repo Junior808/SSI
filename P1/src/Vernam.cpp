@@ -5,34 +5,55 @@ void Vernam::cifrar(std::string entrada_)
     entrada = entrada_;
     convertir_binario(entrada);
 
-    // Clave en binario.
-
+    // Se une en un solo string el mensaje en binario.
     std::string final;
-
-    // Uno en un solo string el mensaje en binario.
     for (int i = 0; i < binario.size(); i++)
     {
         final += binario[i];
     }
 
-    // Hago la suma XOR.
-    std::bitset<24> clave_(clave);
-    std::bitset<24> mensaje_binario;
+    std::bitset<8> clave_;
+    std::vector<std::bitset<8>> clave_entera;
+    std::istringstream clv(clave);
 
-    mensaje_binario = std::bitset<24>(final);
-    mensaje_binario ^= clave_;
+    // Leo cada 8 bits de la clave.
+    for (int i = 0; i < clave.size() / 8; i++)
+    {
+        clv >> clave_;
+        clave_entera.push_back(clave_);
+    }
 
-    mensaje_cifrado_binario = mensaje_binario.to_string();
+    std::bitset<8> final_;
+    std::istringstream fnl(final);
+
+    std::vector<std::bitset<8>> mensaje_entero;
+    //Leo cada 8 bits del mensaje en binario.
+    for (int i = 0; i < final.size() / 8; i++)
+    {
+        fnl >> final_;
+        mensaje_entero.push_back(final_);
+    }
+
+    //Hago la suma XOR entre los 8 bits del mensaje y de la clave.
+    for (int i = 0; i < mensaje_entero.size(); i++)
+    {
+        mensaje_entero[i] ^= clave_entera[i];
+    }
+
+    // Junto todo en un solo string.
+    for (int i = 0; i < mensaje_entero.size(); i++)
+    {
+        mensaje_cifrado_binario += mensaje_entero[i].to_string();
+    }
 
     mensaje_cifrado = convertir_binario_string(mensaje_cifrado_binario);
 }
 
 void Vernam::descifrar(std::string cifrado_)
 {
+    entrada = cifrado_;
     mensaje_cifrado = cifrado_;
     convertir_binario(mensaje_cifrado);
-
-    // Clave en binario.
 
     std::string final;
 
@@ -42,16 +63,42 @@ void Vernam::descifrar(std::string cifrado_)
         final += binario[i];
     }
 
-    // Hago la suma XOR.
-    std::bitset<24> clave_(clave);
-    std::bitset<24> mensaje_binario;
+    std::bitset<8> clave_;
+    std::vector<std::bitset<8>> clave_entera;
+    std::istringstream clv(clave);
 
-    mensaje_binario = std::bitset<24>(final);
-    mensaje_binario ^= clave_;
+    // Leo cada 8 bits de la clave.
+    for (int i = 0; i < clave.size() / 8; i++)
+    {
+        clv >> clave_;
+        clave_entera.push_back(clave_);
+    }
 
-    mensaje_descifrado_binario = mensaje_binario.to_string();
+    std::bitset<8> final_;
+    std::istringstream fnl(final);
+
+    std::vector<std::bitset<8>> mensaje_entero;
+    //Leo cada 8 bits del mensaje en binario.
+    for (int i = 0; i < final.size() / 8; i++)
+    {
+        fnl >> final_;
+        mensaje_entero.push_back(final_);
+    }
+
+    //Hago la suma XOR entre los 8 bits del mensaje y de la clave.
+    for (int i = 0; i < mensaje_entero.size(); i++)
+    {
+        mensaje_entero[i] ^= clave_entera[i];
+    }
+
+    // Junto todo en un solo string.
+    for (int i = 0; i < mensaje_entero.size(); i++)
+    {
+        mensaje_descifrado_binario += mensaje_entero[i].to_string();
+    }
 
     mensaje_descifrado = convertir_binario_string(mensaje_descifrado_binario);
+
 }
 
 void Vernam::write()
