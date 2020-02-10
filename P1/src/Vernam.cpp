@@ -2,6 +2,7 @@
 
 void Vernam::cifrar(std::string entrada_)
 {
+    borrar();
     entrada = entrada_;
     convertir_binario(entrada);
 
@@ -51,6 +52,7 @@ void Vernam::cifrar(std::string entrada_)
 
 void Vernam::descifrar(std::string cifrado_)
 {
+    borrar();
     entrada = cifrado_;
     mensaje_cifrado = cifrado_;
     convertir_binario(mensaje_cifrado);
@@ -98,7 +100,6 @@ void Vernam::descifrar(std::string cifrado_)
     }
 
     mensaje_descifrado = convertir_binario_string(mensaje_descifrado_binario);
-
 }
 
 void Vernam::write()
@@ -155,4 +156,13 @@ std::string Vernam::convertir_binario_string(std::string mensaje_binario)
     }
 
     return mensaje_string;
+}
+
+void Vernam::borrar()
+{
+    entrada.clear();
+    mensaje_cifrado_binario.clear();
+    mensaje_cifrado.clear();
+    mensaje_descifrado.clear();
+    mensaje_descifrado_binario.clear();
 }
