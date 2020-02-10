@@ -19,7 +19,7 @@ private:
 
 public:
     Vernam(std::string entrada_, std::string clave_) : entrada(entrada_), clave(clave_){};
-    Vernam(std::string clave_): clave(clave_){};
+    Vernam(std::string clave_) : clave(clave_){};
 
     ~Vernam(){};
 
@@ -31,6 +31,7 @@ public:
     std::string get_mensaje_descifrado();
 
 private:
+    void borrar();
     void convertir_binario(std::string entrada_);
     std::string convertir_binario_string(std::string mensaje_binario);
 };
