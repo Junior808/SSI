@@ -5,10 +5,39 @@ int main()
 
     // Vernam cifrando("SOL", "001111000001100001110011");
 
+    int opcion = 0;
+
+    std::cout << "¿Desea introducir la clave manual o de forma aleatoria?\n";
+    std::cout << "[0] Manual\n";
+    std::cout << "[1] Aleatoria\n";
+    std::cin >> opcion;
+
     std::string entrada, clave;
 
-    std::cout << "Introduzca la clave:\n";
-    std::cin >> clave;
+    int aleatorio = 0;
+
+    if (opcion == 0)
+    {
+        std::cout << "Introduzca la clave:\n";
+        std::cin >> clave;
+
+        std::cout << "Introduzca la entrada:\n";
+        std::cin >> entrada;
+    }
+    else
+    {
+        std::cout << "Introduzca la entrada:\n";
+        std::cin >> entrada;
+
+        srand(time(NULL));
+
+        for (int i = 0; i < entrada.size(); i++)
+        {
+            aleatorio = rand() % 64;
+            std::bitset<8> clave_bitset(aleatorio);
+            clave += clave_bitset.to_string();
+        }
+    }
 
     Vernam cifrando(clave);
 
@@ -27,8 +56,6 @@ int main()
             salir = true;
             break;
         case 1:
-            std::cout << "Introduzca la entrada:\n";
-            std::cin >> entrada;
 
             cifrando.cifrar(entrada);
 

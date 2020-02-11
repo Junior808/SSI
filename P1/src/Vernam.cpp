@@ -39,6 +39,19 @@ void Vernam::cifrar(std::string entrada_)
     for (int i = 0; i < mensaje_entero.size(); i++)
     {
         mensaje_entero[i] ^= clave_entera[i];
+
+        // if (mensaje_entero[i].to_ullong() > 126)
+        // {
+        //     int temporal = mensaje_entero[i].to_ullong() % 126;
+        //     std::bitset<8> aux(temporal);
+        //     mensaje_entero[i] = aux;
+        // }
+        // if (mensaje_entero[i].to_ullong() < 33)
+        // {
+        //     int temporal = mensaje_entero[i].to_ullong() + 33;
+        //     std::bitset<8> aux(temporal);
+        //     mensaje_entero[i] = aux;
+        // }
     }
 
     // Junto todo en un solo string.
@@ -91,6 +104,19 @@ void Vernam::descifrar(std::string cifrado_)
     for (int i = 0; i < mensaje_entero.size(); i++)
     {
         mensaje_entero[i] ^= clave_entera[i];
+
+        // if (mensaje_entero[i].to_ullong() > 126)
+        // {
+        //     int temporal = mensaje_entero[i].to_ullong() % 126;
+        //     std::bitset<8> aux(temporal);
+        //     mensaje_entero[i] = aux;
+        // }
+        // if (mensaje_entero[i].to_ullong() < 33)
+        // {
+        //     int temporal = mensaje_entero[i].to_ullong() + 33;
+        //     std::bitset<8> aux(temporal);
+        //     mensaje_entero[i] = aux;
+        // }
     }
 
     // Junto todo en un solo string.
@@ -152,6 +178,16 @@ std::string Vernam::convertir_binario_string(std::string mensaje_binario)
     for (int i = 0; i < mensaje.size(); i++)
     {
         unsigned long decimal = std::bitset<8>(mensaje[i]).to_ulong();
+        // std::cout << "DECIMAL1.0: " << decimal << "\n";
+        if (decimal > 125)
+        {
+            decimal = decimal % 125;
+        }
+        if (decimal < 32)
+        {
+            decimal += decimal % 32;
+        }
+        // std::cout << "DECIMAL1.1: " << decimal << "\n";
         mensaje_string.push_back(char(decimal));
     }
 
