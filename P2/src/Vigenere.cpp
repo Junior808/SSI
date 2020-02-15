@@ -2,6 +2,7 @@
 
 void Vigenere::cifrar(std::string entrada)
 {
+    borrar();
     minusculas(entrada);
     int pos_clave = 0, pos_mensaje = 0, pos_alfabeto = 0;
 
@@ -17,6 +18,7 @@ void Vigenere::cifrar(std::string entrada)
 
 void Vigenere::descifrar(std::string entrada)
 {
+    borrar();
     minusculas(entrada);
     int pos_clave = 0, pos_mensaje = 0, pos_alfabeto = 0;
 
@@ -49,8 +51,8 @@ void Vigenere::minusculas(std::string &entrada)
     }
 }
 
-void Vigenere::expandir_clave(std::string entrada)
+void Vigenere::borrar()
 {
-    int div = entrada.size() / clave.size();
-    int resto = entrada.size() % clave.size();
+    cifrado.clear();
+    descifrado.clear();
 }

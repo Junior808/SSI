@@ -1,9 +1,10 @@
 #include "../include/Vigenere.hpp"
+#include <random>
 
 std::string quitar_espacios(char *entrada, int size)
 {
-    char* cpy = entrada;
-    char* temp = entrada;
+    char *cpy = entrada;
+    char *temp = entrada;
 
     while (*cpy)
     {
@@ -20,12 +21,15 @@ std::string quitar_espacios(char *entrada, int size)
 
 int main()
 {
+    std::string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     int opcion = 0;
 
+    std::cout << "--------------------------------------------------------\n";
     std::cout << "¿Desea introducir la clave manual o de forma aleatoria?\n";
     std::cout << "[0] Manual\n";
     std::cout << "[1] Aleatoria\n";
+    std::cout << "--------------------------------------------------------\n";
     std::cin >> opcion;
 
     std::string entrada, clave;
@@ -38,14 +42,16 @@ int main()
     }
     else
     {
-        srand(time(NULL));
+        std::random_device rd;
+        std::uniform_int_distribution<> distr(0, 26);
 
-        for (int i = 0; i < rand() % 17; i++)
+        int size = distr(rd);
+
+        for (int i = 0; i < size; i++)
         {
-            std::cout << "No implementado :)\n";
+            clave += alfabeto[distr(rd)];
         }
-
-        std::cout << clave;
+        std::cout << "Clave: " << clave << "\n";
     }
 
     Vigenere cifrando(clave);
@@ -55,10 +61,12 @@ int main()
 
     while (!salir)
     {
+        std::cout << "\n--------------------------\n";
         std::cout << "\n¿Qué desea hacer?\n";
         std::cout << "[0] Salir.\n";
         std::cout << "[1] Cifrar mesaje.\n";
         std::cout << "[2] Descifrar mensaje.\n";
+        std::cout << "--------------------------\n";
         std::cin >> operacion;
 
         switch (operacion)

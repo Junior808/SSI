@@ -22,5 +22,5 @@ public:
 
 private:
     void minusculas(std::string &entrada); //Función que comprueba si el mensaje está en minúscula y lo pasa a mayúscula.
-    void expandir_clave(std::string entrada);
+    void borrar();
 };
