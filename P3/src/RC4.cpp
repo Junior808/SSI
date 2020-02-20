@@ -2,22 +2,12 @@
 
 void RC4::cifrar(std::vector<int> entrada)
 {
-    for (int k = 0; k < entrada.size(); k++)
-    {
-        std::bitset<8> temp = std::bitset<8>(entrada[k]) ^ std::bitset<8>(prga());
-
-        cifrado.push_back(temp);
-    }
-}
-
-void RC4::descifrar(std::vector<int> entrada)
-{
     reiniciar();
     for (int k = 0; k < entrada.size(); k++)
     {
         std::bitset<8> temp = std::bitset<8>(entrada[k]) ^ std::bitset<8>(prga());
 
-        descifrado.push_back(temp);
+        cifrado.push_back(temp);
     }
 }
 
@@ -56,30 +46,18 @@ void RC4::swap(int i, int j)
     S[j] = aux;
 }
 
-void RC4::borrar()
-{
-    cifrado.clear();
-    descifrado.clear();
-}
-
 void RC4::reiniciar()
 {
     S.clear();
+    cifrado.clear();
     i_ = 0, j_ = 0;
     ksa();
 }
 
 void RC4::write()
 {
-    std::cout << "Cifrado: \n";
     for (int i = 0; i < cifrado.size(); i++)
     {
         std::cout << cifrado[i].to_ulong() << std::endl;
-    }
-
-    std::cout << "Descifrado: \n";
-    for (int i = 0; i < descifrado.size(); i++)
-    {
-        std::cout << descifrado[i].to_ulong() << std::endl;
     }
 }
