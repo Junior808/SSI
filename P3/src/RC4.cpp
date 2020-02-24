@@ -14,7 +14,6 @@ void RC4::cifrar(std::vector<int> entrada)
 void RC4::ksa()
 {
     i_ = 0, j_ = 0;
-    // S.clear();
     for (int i = 0; i < 256; i++)
     {
         S.push_back(i);

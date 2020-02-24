@@ -9,7 +9,6 @@ class RC4
     std::vector<int> clave;
     std::vector<std::bitset<8>> cifrado;
 
-    // std::vector<std::string> S;
     std::vector<int> S;
 
     int i_ = 0;

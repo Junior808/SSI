@@ -57,14 +57,23 @@ int main()
     else
     {
         std::random_device rd;
-        std::uniform_int_distribution<> distr1(0, 30);
-        std::uniform_int_distribution<> distr2(0, 256);
+        std::uniform_int_distribution<> distr1(1, 30);
+        std::uniform_int_distribution<> distr2(1, 256);
 
         int size = distr1(rd);
 
         for (int i = 0; i < size; i++)
         {
             clave.push_back(distr2(rd));
+        }
+
+        std::cout << "Clave aleatoria: \n";
+        for (int i = 0; i < clave.size(); i++)
+        {
+            if (i == clave.size() - 1)
+                std::cout << clave[i] << "\n";
+            else
+                std::cout << clave[i] << ",";
         }
     }
 
