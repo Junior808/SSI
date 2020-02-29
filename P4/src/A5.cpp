@@ -51,19 +51,19 @@ void A5::mayoria(std::bitset<1> &at, std::bitset<1> &bt, std::bitset<1> &ct)
 
     switch (caso)
     {
-    case 011:
+    case 11:  //011
     case 100: //Paralizo A.
         std::cout << "\nParalizo A\n";
         desplazar(bt, 2);
         desplazar(ct, 3);
         break;
-    case 010:
+    case 10:  //010
     case 101: // Paralizo B.
         std::cout << "\nParalizo B\n";
         desplazar(at, 1);
         desplazar(ct, 3);
         break;
-    case 001:
+    case 1:   //001
     case 110: //Paralizo C.
         std::cout << "\nParalizo C\n";
         desplazar(at, 1);
@@ -124,80 +124,84 @@ void A5::desplazar(std::bitset<1> &xt, int lfsr_x)
     }
 }
 
-void A5::insertar_semillas(std::string s1, std::string s2, std::string s3)
+void A5::insertar_semillas(std::vector<std::string> semillas)
 {
     std::bitset<1> aux;
 
-    for (int i = 0; i < s1.size(); i++)
+    for (int i = 0; i < semillas[0].size(); i++)
     {
-        aux = s1[i];
+        aux = semillas[0][i];
         R1.push_back(aux);
     }
 
-    for (int i = 0; i < s2.size(); i++)
+    for (int i = 0; i < semillas[1].size(); i++)
     {
-        aux = s2[i];
+        aux = semillas[1][i];
         R2.push_back(aux);
     }
 
-    for (int i = 0; i < s3.size(); i++)
+    for (int i = 0; i < semillas[2].size(); i++)
     {
-        aux = s3[i];
+        aux = semillas[2][i];
         R3.push_back(aux);
     }
 }
 
-void A5::pos_mayoria(int a_, int b_, int c_)
+void A5::pos_mayoria(std::vector<int> posiciones)
 {
-    a = a_;
-    b = b_;
-    c = c_;
+    a = posiciones[0];
+    b = posiciones[1];
+    c = posiciones[2];
 }
 
-void A5::pos_polinomios(std::vector<int> x1_, std::vector<int> x2_, std::vector<int> x3_)
+void A5::pos_polinomios(std::vector<std::vector<int>> posiciones)
 {
-    x1 = x1_;
-    x2 = x2_;
-    x3 = x3_;
+    x1 = posiciones[0];
+    x2 = posiciones[1];
+    x3 = posiciones[2];
 }
 
 void A5::write()
 {
+    std::cout << "\n----------------------------------------------------------------------\n";
+    std::cout << "Polinomio 1: ";
     for (int i = 0; i < R1.size(); i++)
     {
         std::cout << R1[i].to_ullong();
     }
-
-    std::cout << "\n";
-    for (int i = 0; i < R2.size(); i++)
-    {
-        std::cout << R2[i].to_ullong();
-    }
-
-    std::cout << "\n";
-    for (int i = 0; i < R3.size(); i++)
-    {
-        std::cout << R3[i].to_ullong();
-    }
-    std::cout << "\n";
-
+    std::cout << "\nPosiciones realimentación polinomio 1: ";
     for (int i = 0; i < x1.size(); i++)
     {
         std::cout << x1[i] << " ";
     }
+    std::cout << "\nPosición fun. mayoría polinomio 1: " << a;
     std::cout << "\n";
 
+    std::cout << "----------------------------------------------------------------------\n";
+    std::cout << "Polinomio 2: ";
+    for (int i = 0; i < R2.size(); i++)
+    {
+        std::cout << R2[i].to_ullong();
+    }
+    std::cout << "\nPosiciones realimentación polinomio 2: ";
     for (int i = 0; i < x2.size(); i++)
     {
         std::cout << x2[i] << " ";
     }
+    std::cout << "\nPosición fun. mayoría polinomio 2: " << b;
     std::cout << "\n";
-
+    std::cout << "----------------------------------------------------------------------\n";
+    std::cout << "Polinomio 3: ";
+    for (int i = 0; i < R3.size(); i++)
+    {
+        std::cout << R3[i].to_ullong();
+    }
+    std::cout << "\nPosiciones realimentación polinomio 3: ";
     for (int i = 0; i < x3.size(); i++)
     {
         std::cout << x3[i] << " ";
     }
-
-    std::cout << "\nPos: \n"
-              << a << " " << b << " " << c;
+    std::cout << "\nPosición fun. mayoría polinomio 3: " << c;
+    std::cout << "\n";
+    std::cout << "----------------------------------------------------------------------\n";
 }

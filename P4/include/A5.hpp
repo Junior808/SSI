@@ -30,9 +30,10 @@ public:
 
     void cifrar();
 
-    void insertar_semillas(std::string s1, std::string s2, std::string s3);
-    void pos_mayoria(int a_, int b_, int c_);
-    void pos_polinomios(std::vector<int> x1_, std::vector<int> x2_, std::vector<int> x3_);
+    void insertar_semillas(std::vector<std::string> semillas);
+
+    void pos_mayoria(std::vector<int> posiciones);
+    void pos_polinomios(std::vector<std::vector<int>> posiciones);
 
     void write();
     std::string get_Z() { return Z; };
