@@ -57,6 +57,6 @@ void RC4::write()
 {
     for (int i = 0; i < cifrado.size(); i++)
     {
-        std::cout << cifrado[i].to_ulong() << std::endl;
+        std::cout << cifrado[i].to_ulong() << " (" << cifrado[i] << ")" << std::endl;
     }
 }
