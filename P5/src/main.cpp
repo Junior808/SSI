@@ -2,18 +2,54 @@
 
 int main()
 {
-    std::string lfsr1 = "0101010101010101010101011";
-    std::string lfsr2 = "0101010101010101010101010101011";
-    std::string lfsr3 = "010101010101010101010101010101011";
-    std::string lfsr4 = "010101010101010101010101010101010101011";
+    std::string lfsr1 = "0101010101010101010101111";
+    std::string lfsr2 = "0101010101010101010101010101111";
+    std::string lfsr3 = "010101010101010101010101010101111";
+    std::string lfsr4 = "010101010101010101010101010101010101010";
 
-    std::string r1 = "01";
+    std::string r1 = "10";
 
     std::vector<std::string> semilas = {lfsr1, lfsr2, lfsr3, lfsr4, r1};
 
-    std::vector<int> x1 = {7, 11, 19, 24};
-    std::vector<int> x2 = {11, 15, 23, 30};
-    std::vector<int> x3 = {3, 23, 27, 32};
-    std::vector<int> x4 = {3, 27, 35, 38};
-    std::vector<std::vector<int>> posiciones = {x1, x2, x3, x4};
+    E0 generador(semilas);
+
+    bool salir = false;
+    int operacion = 0, repeticiones = 0;
+
+    while (!salir)
+    {
+        std::cout << "\n----------------------------------------\n";
+        std::cout << "\n¿Qué desea hacer?\n";
+        std::cout << "[0] Salir.\n";
+        std::cout << "[1] Generar secuencia.\n";
+        std::cout << "[2] Mostrar información de los LFSR.\n";
+        std::cout << "------------------------------------------\n";
+        std::cin >> operacion;
+
+        switch (operacion)
+        {
+        case 0:
+            salir = true;
+            break;
+        case 1:
+            // std::cout << "\n¿Cuántos bits quiere generar?\n";
+            // std::cin >> repeticiones;
+
+            repeticiones = 4;
+            for (int i = 0; i < repeticiones; i++)
+            {
+                generador.write();
+                generador.generar();
+            }
+
+            std::cout << "\nZ: " << generador.get_Z() << std::endl;
+            break;
+        case 2:
+            generador.write();
+            break;
+        default:
+            std::cout << "\nOperación incorrecta.\n";
+        }
+    }
+    return 0;
 }
