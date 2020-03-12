@@ -7,7 +7,7 @@ int main()
     std::string lfsr3 = "010101010101010101010101010101111";
     std::string lfsr4 = "010101010101010101010101010101010101010";
 
-    std::string r1 = "10";
+    std::string r1 = "01";
 
     std::vector<std::string> semilas = {lfsr1, lfsr2, lfsr3, lfsr4, r1};
 
@@ -18,12 +18,12 @@ int main()
 
     while (!salir)
     {
-        std::cout << "\n----------------------------------------\n";
+        std::cout << "\n------------------------------------";
         std::cout << "\n¿Qué desea hacer?\n";
         std::cout << "[0] Salir.\n";
         std::cout << "[1] Generar secuencia.\n";
         std::cout << "[2] Mostrar información de los LFSR.\n";
-        std::cout << "------------------------------------------\n";
+        std::cout << "------------------------------------\n";
         std::cin >> operacion;
 
         switch (operacion)

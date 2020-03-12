@@ -16,9 +16,19 @@ void E0::generar()
 
     caja1 += LFSR1[0] + LFSR2[0] + LFSR3[0] + LFSR4[0];
 
-    std::cout << "\nCAJA1: " << caja1 << std::endl;
+    // Cambio de posiciones para R1.
+    int aux = R1[0];
+    R1[0] = R1[1];
+    R1[1] = aux;
+    std::cout << "\nR1: " << R1 << std::endl;
 
-    // std::cout << "\R1: " << R1.to_ulong() << std::endl;
+    //Cambio de posiciones R2
+    R2[0] = R1[1];
+    R2[1] = R1[0];
+
+    std::cout << "\nR2: " << R2 << std::endl;
+
+    std::cout << "\nCAJA1: " << caja1 << std::endl;
 
     caja2 = R1.to_ulong() + caja1;
 
@@ -26,15 +36,11 @@ void E0::generar()
 
     std::bitset<2> suma_en_T2 = caja2 / 2;
 
+    // Generar secuencia antes de cambiar valor de R1.
     zt = LFSR1[0] ^ LFSR2[0] ^ LFSR3[0] ^ LFSR4[0] ^ R1[0];
     Z += zt.to_string();
 
     //Formula PDF
-    R2[0] = R1[1];
-    R2[1] = R1[0];
-
-    std::cout << "\nR2: " << R2 << std::endl;
-
     std::bitset<2> T2;
 
     T2[1] = R2[0];
@@ -44,13 +50,12 @@ void E0::generar()
 
     suma_en_T1 = T2 ^ suma_en_T2;
 
-    std::cout << "\nR1 Pre: " << R1 << std::endl;
+    // std::cout << "\nR1 Pre: " << R1 << std::endl;
 
-    R1 = R1 ^ suma_en_T1;
+    R1 ^= suma_en_T1;
 
-    std::cout << "\nR1 Post: " << R1 << std::endl;
+    // std::cout << "\nR1 Post: " << R1 << std::endl;
 
-    //
     // std::cout << "LFSR1: " << LFSR1[0] << std::endl;
     // std::cout << "LFSR2: " << LFSR2[0] << std::endl;
     // std::cout << "LFSR3: " << LFSR3[0] << std::endl;
@@ -81,13 +86,13 @@ void E0::realimentacion()
 
 void E0::write()
 {
-    std::cout << "\n----------------------------------------------------------------------\n";
+    std::cout << "\n----------------------------------------------\n";
     std::cout << "LFSR1: " << LFSR1;
-    std::cout << "\n----------------------------------------------------------------------\n";
+    std::cout << "\n----------------------------------------------\n";
     std::cout << "LFSR2: " << LFSR2;
-    std::cout << "\n----------------------------------------------------------------------\n";
+    std::cout << "\n----------------------------------------------\n";
     std::cout << "LFSR3: " << LFSR3;
-    std::cout << "\n----------------------------------------------------------------------\n";
+    std::cout << "\n----------------------------------------------\n";
     std::cout << "LFSR4: " << LFSR4;
-    std::cout << "\n----------------------------------------------------------------------\n";
+    std::cout << "\n----------------------------------------------\n";
 }
