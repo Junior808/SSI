@@ -20,6 +20,7 @@ void E0::generar()
     int aux = R1[0];
     R1[0] = R1[1];
     R1[1] = aux;
+
     std::cout << "\nR1: " << R1 << std::endl;
 
     //Cambio de posiciones R2
@@ -46,21 +47,19 @@ void E0::generar()
     T2[1] = R2[0];
     T2[0] = R2[1] ^ R2[0];
 
+    std::cout << "\nT2: " << T2 << std::endl;
+
     std::bitset<2> suma_en_T1;
 
     suma_en_T1 = T2 ^ suma_en_T2;
 
-    // std::cout << "\nR1 Pre: " << R1 << std::endl;
+    std::cout << "\nLFSR1: " << LFSR1[0] << std::endl;
+    std::cout << "LFSR2: " << LFSR2[0] << std::endl;
+    std::cout << "LFSR3: " << LFSR3[0] << std::endl;
+    std::cout << "LFSR4: " << LFSR4[0] << std::endl;
+    std::cout << "R1: " << R1[0] << std::endl;
 
     R1 ^= suma_en_T1;
-
-    // std::cout << "\nR1 Post: " << R1 << std::endl;
-
-    // std::cout << "LFSR1: " << LFSR1[0] << std::endl;
-    // std::cout << "LFSR2: " << LFSR2[0] << std::endl;
-    // std::cout << "LFSR3: " << LFSR3[0] << std::endl;
-    // std::cout << "LFSR4: " << LFSR4[0] << std::endl;
-    // std::cout << "R1: " << R1[0] << std::endl;
 
     realimentacion();
 }

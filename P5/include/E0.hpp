@@ -4,11 +4,9 @@
 #include <string>
 #include <sstream>
 #include <bitset>
-#include <math.h>
 
 class E0
 {
-    // LFSR y posiciones para hacer XOR.
     std::bitset<25> LFSR1;
     std::bitset<31> LFSR2;
     std::bitset<33> LFSR3;
@@ -29,6 +27,5 @@ public:
     std::string get_Z() { return Z; };
 
 private:
-    void desplazar(std::bitset<1> &xt, int lfsr_x);
     void realimentacion();
 };

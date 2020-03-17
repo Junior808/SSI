@@ -14,7 +14,7 @@ int main()
     E0 generador(semilas);
 
     bool salir = false;
-    int operacion = 0, repeticiones = 0;
+    int operacion = 0;
 
     while (!salir)
     {
@@ -32,11 +32,7 @@ int main()
             salir = true;
             break;
         case 1:
-            // std::cout << "\n¿Cuántos bits quiere generar?\n";
-            // std::cin >> repeticiones;
-
-            repeticiones = 4;
-            for (int i = 0; i < repeticiones; i++)
+            for (int i = 0; i < 4; i++)
             {
                 generador.write();
                 generador.generar();
