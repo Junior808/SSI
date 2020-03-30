@@ -5,17 +5,27 @@
 
 class AES
 {
-
     std::vector<int> S_Caja;
-    std::vector<int> Matriz_MixColumn;
+    std::vector<std::vector<int>> Rcon;
+
+    std::vector<std::vector<int>> clave_extendida;
+    std::vector<std::vector<int>> clave_original;
+    std::vector<std::vector<int>> mensaje;
+
+    std::vector<std::vector<int>> resultado;
 
 public:
     AES();
     ~AES(){};
 
-    void expandir_clave();
+    void cifrar();
 
-    void addRoundKey();
+    void introducir_datos(std::vector<std::vector<int>> clave, std::vector<std::vector<int>> entrada);
+    void write();
+
+private:
+    void expandir_clave();
+    void addRoundKey(int iteracion);
     void ByteSub();
     void ShiftRow();
     void MixColumn();

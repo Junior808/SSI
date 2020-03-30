@@ -20,29 +20,192 @@ AES::AES()
         0xe1, 0xf8, 0x98, 0x11, 0x69, 0xd9, 0x8e, 0x94, 0x9b, 0x1e, 0x87, 0xe9, 0xce, 0x55, 0x28, 0xdf,
         0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16};
 
-    Matriz_MixColumn = {
-        2, 3, 1, 1,
-        1, 2, 3, 1,
-        1, 1, 2, 3,
-        3, 1, 1, 2};
+    Rcon = {
+        {0x01, 0x00, 0x00, 0x00},
+        {0x02, 0x00, 0x00, 0x00},
+        {0x04, 0x00, 0x00, 0x00},
+        {0x08, 0x00, 0x00, 0x00},
+        {0x10, 0x00, 0x00, 0x00},
+        {0x20, 0x00, 0x00, 0x00},
+        {0x40, 0x00, 0x00, 0x00},
+        {0x80, 0x00, 0x00, 0x00},
+        {0x1B, 0x00, 0x00, 0x00},
+        {0x36, 0x00, 0x00, 0x00}};
+
+    resultado.resize(4);
+    clave_extendida.resize(4);
+    for (int i = 0; i < 4; i++)
+    {
+        resultado[i].resize(4);
+        clave_extendida[i].resize(44);
+    }
+}
+
+void AES::introducir_datos(std::vector<std::vector<int>> clave, std::vector<std::vector<int>> entrada)
+{
+    clave_original = clave;
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            clave_extendida[i][j] = clave[i][j];
+
+    mensaje = entrada;
 }
 
 void AES::expandir_clave()
 {
+
+    std::vector<int> Wi_1;
+    std::vector<int> Wi_4;
+    Wi_1.resize(4);
+    Wi_4.resize(4);
+    int swap, const_iter = 0;
+
+    for (int j = 4; j < 44; j++)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            Wi_1[i] = clave_extendida[i][j - 1];
+            Wi_4[i] = clave_extendida[i][j - 4];
+        }
+
+        if (j % 4 == 0)
+        {
+            //RotWord cada 4 columnas. Rodar elementos hacia arriba.
+            swap = Wi_1[0];
+            Wi_1[0] = Wi_1[1];
+            Wi_1[1] = Wi_1[2];
+            Wi_1[2] = Wi_1[3];
+            Wi_1[3] = swap;
+
+            for (int i = 0; i < 4; i++)
+                Wi_1[i] = S_Caja[Wi_1[i]];
+
+            for (int i = 0; i < 4; i++)
+                clave_extendida[i][j] = Wi_4[i] ^ Wi_1[i] ^ Rcon[const_iter][i];
+
+            const_iter++;
+        }
+        else
+            for (int i = 0; i < 4; i++)
+                clave_extendida[i][j] = Wi_1[i] ^ Wi_4[i];
+    }
 }
 
-void AES::addRoundKey()
+void AES::addRoundKey(int iteracion)
 {
+    int j_iteracion = 4 * iteracion;
+    if (iteracion == 0)
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
+                resultado[i][j] = mensaje[i][j] ^ clave_original[i][j];
+    else
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
+                resultado[i][j] = resultado[i][j] ^ clave_extendida[i][j + j_iteracion];
+
+    //Traza
+    if (iteracion == 10)
+        std::cout << "\nR10 ";
+    else
+        std::cout << "\nR" << iteracion << " ";
+
+    std::cout << "(Subclave: ";
+
+    for (int j = 0; j < 4; j++)
+        for (int i = 0; i < 4; i++)
+            std::cout << std::hex << clave_extendida[i][j + j_iteracion];
+
+    std::cout << ") = ";
+
+    for (int j = 0; j < 4; j++)
+        for (int i = 0; i < 4; i++)
+            std::cout << std::hex << resultado[i][j];
+
+    std::cout << "\n";
+    //!Traza
 }
 
 void AES::ByteSub()
 {
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            resultado[i][j] = S_Caja[resultado[i][j]];
 }
 
 void AES::ShiftRow()
 {
+    int swap = 0, fila = 1;
+
+    swap = resultado[fila][0];
+    resultado[fila][0] = resultado[fila][1];
+    resultado[fila][1] = resultado[fila][2];
+    resultado[fila][2] = resultado[fila][3];
+    resultado[fila][3] = swap;
+
+    fila++;
+    swap = resultado[fila][0];
+    resultado[fila][0] = resultado[fila][2];
+    resultado[fila][2] = swap;
+    swap = resultado[fila][1];
+    resultado[fila][1] = resultado[fila][3];
+    resultado[fila][3] = swap;
+
+    fila++;
+    swap = resultado[fila][0];
+    resultado[fila][0] = resultado[fila][3];
+    resultado[fila][3] = resultado[fila][2];
+    resultado[fila][2] = resultado[fila][1];
+    resultado[fila][1] = swap;
 }
 
 void AES::MixColumn()
 {
+    unsigned char a[4], b[4], h;
+
+    for (unsigned char j = 0; j < 4; j++)
+    {
+        for (unsigned char c = 0; c < 4; c++)
+        {
+            a[c] = resultado[c][j];
+            h = resultado[c][j] & 0x80;
+            b[c] = resultado[c][j] << 1;
+
+            if (h == 0x80)
+                b[c] ^= 0x1B;
+        }
+        resultado[0][j] = b[0] ^ a[3] ^ a[2] ^ b[1] ^ a[1];
+        resultado[1][j] = b[1] ^ a[0] ^ a[3] ^ b[2] ^ a[2];
+        resultado[2][j] = b[2] ^ a[1] ^ a[0] ^ b[3] ^ a[3];
+        resultado[3][j] = b[3] ^ a[2] ^ a[1] ^ b[0] ^ a[0];
+    }
+}
+
+void AES::cifrar()
+{
+    std::cout << "\n";
+
+    expandir_clave();
+    addRoundKey(0);
+
+    for (int i = 1; i < 10; i++)
+    {
+        ByteSub();
+        ShiftRow();
+        MixColumn();
+        addRoundKey(i);
+    }
+
+    ByteSub();
+    ShiftRow();
+    addRoundKey(10);
+}
+
+void AES::write()
+{
+    std::cout << "\nTexto cifrado: ";
+    for (int j = 0; j < resultado.size(); j++)
+        for (int i = 0; i < resultado[j].size(); i++)
+            std::cout << std::hex << resultado[i][j];
+
+    std::cout << "\n";
 }
