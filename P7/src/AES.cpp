@@ -125,7 +125,7 @@ void AES::addRoundKey(int iteracion)
     //!Traza
 }
 
-void AES::ByteSub()
+void AES::SubBytes()
 {
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4; j++)
@@ -189,13 +189,13 @@ void AES::cifrar()
 
     for (int i = 1; i < 10; i++)
     {
-        ByteSub();
+        SubBytes();
         ShiftRow();
         MixColumn();
         addRoundKey(i);
     }
 
-    ByteSub();
+    SubBytes();
     ShiftRow();
     addRoundKey(10);
 }

@@ -26,7 +26,7 @@ public:
 private:
     void expandir_clave();
     void addRoundKey(int iteracion);
-    void ByteSub();
+    void SubBytes();
     void ShiftRow();
     void MixColumn();
 };
