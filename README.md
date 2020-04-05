@@ -13,3 +13,6 @@
 5. [Generador E0](P5/)
 6. [Multiplicación SNOW 3G y AES](P6/)
 7. [Rijndael (AES)](P7/)
+8. [Modos de cifrado en bloque](P8/)
+9. [Diffie-Hellman](P9/)
+10. [Fiat-Shamir](P10/)
