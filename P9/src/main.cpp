@@ -2,12 +2,20 @@
 
 int pow(int base, int exponente, int primo)
 {
-    int resultado = 1;
+    int resultado = 1, y = base % primo;
 
-    for (int i = 0; i < exponente; i++)
+    while ((exponente > 0) && (y > 1))
     {
-        resultado *= base;
-        resultado %= primo;
+        if (exponente % 2) // Impar
+        {
+            resultado = (resultado * y) % primo;
+            exponente--;
+        }
+        else
+        {
+            y = (y * y) % primo;
+            exponente /= 2;
+        }
     }
 
     return resultado;
