@@ -10,7 +10,6 @@ void pre_cifrar(std::vector<std::vector<int>> &texto, std::vector<std::vector<in
 
 void cipher_stealing(int robar, std::vector<std::vector<int>> &texto_robado, std::vector<std::vector<int>> &texto_aumentado)
 {
-    std::vector<int> robando;
     int size_robado = 0, size_i_robado = 0;
     for (int k = 0; k < robar; k++)
     {
@@ -121,6 +120,12 @@ int main()
             break;
 
         case 2:
+
+            ivector_ = {
+                {0x00, 0x00, 0x00, 0x00},
+                {0x00, 0x00, 0x00, 0x00},
+                {0x00, 0x00, 0x00, 0x00},
+                {0x00, 0x00, 0x00, 0x00}};
 
             std::cout << "Clave: ";
             for (int j = 0; j < clave_.size(); j++)

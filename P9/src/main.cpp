@@ -50,7 +50,7 @@ void diffie_hellman(int p, int a, int x_a, int x_b)
     std::cout << "\n-------------------------------------\n";
 
     std::cout << "------------------B------------------\n";
-    std::cout << "Entonces K vale " << pow(y_b, x_a, p);
+    std::cout << "Entonces K vale " << pow(y_a, x_b, p);
     std::cout << "\n-------------------------------------\n";
 }
 

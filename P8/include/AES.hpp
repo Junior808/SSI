@@ -30,6 +30,4 @@ private:
     void SubBytes();
     void ShiftRow();
     void MixColumn();
-    void cbc(int iteracion);
-    void cipher_stealing();
 };
