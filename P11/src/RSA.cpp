@@ -9,24 +9,41 @@ RSA::RSA(int p_, int q_, int d_) : p(p_), q(q_), d(d_)
 bool RSA::test()
 {
     int pasar = true;
+
     pasar = lehman_peralta(p);
-    pasar = lehman_peralta(q);
-    e = test_euclides();
-    if (!pasar || e == 0)
+    if (!pasar)
+    {
+        std::cout << "P no es primo.\n";
         return false;
+    }
+
+    pasar = lehman_peralta(q);
+    if (!pasar)
+    {
+        std::cout << "Q no es primo.\n";
+        return false;
+    }
+
+    e = test_euclides();
+    if (e == 0)
+    {
+        std::cout << "D no es primo con Fi(n).\n";
+        return false;
+    }
 
     return true;
 }
 
 void RSA::cifrar(std::string mensaje)
 {
-    n = p * q;
     int size_bloque = (int)std::log(n) / (int)std::log(alfabeto.size());
+    std::cout << "Tamaño del bloque: " << size_bloque << "\n";
 
     int temp = 0;
     for (int i = 0; i < mensaje.size(); i++)
     {
-        temp = codificacion(size_bloque, mensaje);
+        std::string bloque_mensaje = mensaje.substr(i, size_bloque);
+        temp = codificacion(size_bloque, bloque_mensaje);
         mensaje_codificado.push_back(temp);
         mensaje_cifrado.push_back(exp_rapida(temp, e, n));
         i += size_bloque - 1;
@@ -43,10 +60,10 @@ int RSA::codificacion(int size_bloque, std::string mensaje)
     return resultado;
 }
 
-int RSA::exp_rapida(int base, int exponente, int primo)
+long unsigned int RSA::exp_rapida(long unsigned int base, int exponente, int primo)
 {
     std::string cad();
-    int resultado = 1, y = base % primo;
+    long unsigned int resultado = 1, y = base % primo;
 
     while ((exponente > 0) && (y > 1))
     {
@@ -134,6 +151,11 @@ bool RSA::lehman_peralta(int primo)
 
 void RSA::write()
 {
+    std::cout << "D:" << d << "\n";
+    std::cout << "Fi:" << Fi << "\n";
+    std::cout << "E:" << e << "\n";
+    std::cout << "N:" << n << "\n";
+
     std::cout << "Mensaje codificado: ";
     for (int i = 0; i < mensaje_codificado.size(); i++)
     {

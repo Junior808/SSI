@@ -12,7 +12,6 @@ class RSA
     int d = 0;
     int Fi = 0;
     int e = 0;
-
     int n = 0;
 
     std::string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -30,7 +29,7 @@ public:
 
 private:
     int codificacion(int size_bloque, std::string mensaje);
-    int exp_rapida(int base, int exponente, int primo);
+    long unsigned int exp_rapida(long unsigned int base, int exponente, int primo);
     int test_euclides();
     bool lehman_peralta(int primo);
     int cod_mensaje();

@@ -52,10 +52,7 @@ int main()
             entrada = quitar_espacios(c_mensaje);
 
             if (!A.test())
-            {
-                std::cout << "Los números no son primos.\n";
                 return 0;
-            }
             else
             {
                 A.cifrar(entrada);
@@ -70,10 +67,7 @@ int main()
             entrada = quitar_espacios(c_mensaje);
 
             if (!B.test())
-            {
-                std::cout << "Los números no son primos.\n";
                 return 0;
-            }
             else
             {
                 B.cifrar(entrada);
