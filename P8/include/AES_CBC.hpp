@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-class AES
+class AES_CBC
 {
     std::vector<int> S_Caja;
     std::vector<std::vector<int>> Rcon;
@@ -15,8 +15,8 @@ class AES
     std::vector<std::vector<int>> resultado;
 
 public:
-    AES();
-    ~AES(){};
+    AES_CBC();
+    ~AES_CBC(){};
 
     std::vector<std::vector<int>> cifrar();
 

@@ -1,4 +1,4 @@
-#include "AES.hpp"
+#include "AES_CBC.hpp"
 #include <sstream>
 
 void pre_cifrar(std::vector<std::vector<int>> &texto, std::vector<std::vector<int>> &ivector)
@@ -67,7 +67,7 @@ int main()
 
     //   ------------------------------------
 
-    AES cifrado;
+    AES_CBC cifrado;
     bool salir = false;
     int operacion = 0;
     std::string entrada;

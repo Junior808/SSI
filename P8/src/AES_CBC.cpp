@@ -1,6 +1,6 @@
-#include "AES.hpp"
+#include "AES_CBC.hpp"
 
-AES::AES()
+AES_CBC::AES_CBC()
 {
     S_Caja = {
         0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
@@ -41,7 +41,7 @@ AES::AES()
     }
 }
 
-void AES::introducir_datos(std::vector<std::vector<int>> clave, std::vector<std::vector<int>> entrada)
+void AES_CBC::introducir_datos(std::vector<std::vector<int>> clave, std::vector<std::vector<int>> entrada)
 {
     clave_original = clave;
     for (int i = 0; i < 4; i++)
@@ -51,12 +51,12 @@ void AES::introducir_datos(std::vector<std::vector<int>> clave, std::vector<std:
     mensaje = entrada;
 }
 
-void AES::entrada_nueva(std::vector<std::vector<int>> entrada)
+void AES_CBC::entrada_nueva(std::vector<std::vector<int>> entrada)
 {
     mensaje = entrada;
 }
 
-void AES::expandir_clave()
+void AES_CBC::expandir_clave()
 {
 
     std::vector<int> Wi_1;
@@ -96,7 +96,7 @@ void AES::expandir_clave()
     }
 }
 
-void AES::addRoundKey(int iteracion)
+void AES_CBC::addRoundKey(int iteracion)
 {
     int j_iteracion = 4 * iteracion;
     if (iteracion == 0)
@@ -130,14 +130,14 @@ void AES::addRoundKey(int iteracion)
     //!Traza
 }
 
-void AES::SubBytes()
+void AES_CBC::SubBytes()
 {
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4; j++)
             resultado[i][j] = S_Caja[resultado[i][j]];
 }
 
-void AES::ShiftRow()
+void AES_CBC::ShiftRow()
 {
     int swap = 0, fila = 1;
 
@@ -163,7 +163,7 @@ void AES::ShiftRow()
     resultado[fila][1] = swap;
 }
 
-void AES::MixColumn()
+void AES_CBC::MixColumn()
 {
     unsigned char a[4], b[4], h;
 
@@ -185,7 +185,7 @@ void AES::MixColumn()
     }
 }
 
-std::vector<std::vector<int>> AES::cifrar()
+std::vector<std::vector<int>> AES_CBC::cifrar()
 {
     std::cout << "\n";
 
@@ -207,7 +207,7 @@ std::vector<std::vector<int>> AES::cifrar()
     return resultado;
 }
 
-void AES::write()
+void AES_CBC::write()
 {
     std::cout << "\nTexto cifrado: ";
     for (int j = 0; j < resultado.size(); j++)
