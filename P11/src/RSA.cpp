@@ -128,7 +128,10 @@ bool RSA::lehman_peralta(int primo)
     bool compuesto = true;
     for (int i = 0; i < aleatorios.size(); i++)
         if (exp_rapida(aleatorios[i], (p - 1) / 2, p) != 1)
+        {
             compuesto = false;
+            break;
+        }
 
     if (compuesto)
         return false;
@@ -141,7 +144,7 @@ bool RSA::lehman_peralta(int primo)
         if (temp != 1)
             temp -= p;
 
-        if ((temp != -1 && (temp != 1)))
+        if ((temp != -1) && (temp != 1))
             return false;
     }
 
