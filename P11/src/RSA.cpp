@@ -8,7 +8,7 @@ RSA::RSA(int p_, int q_, int d_) : p(p_), q(q_), d(d_)
 
 bool RSA::test()
 {
-    int pasar = true;
+    bool pasar = true;
 
     pasar = lehman_peralta(p);
     if (!pasar)
