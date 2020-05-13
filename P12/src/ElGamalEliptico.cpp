@@ -35,10 +35,10 @@ void ElGamalEliptico::cifrar(int mensaje, std::pair<int, int> punto_base)
     for (int i = 2; i <= (aA * dB); i += 2)
         aA_x_dBP = sumar(aA_x_dBP, aA_x_dBP);
 
-    std::cout << "\nA P: " << aAP.first << " " << aAP.second;
-    std::cout << "\nB P: " << dBP.first << " " << dBP.second;
-    std::cout << "\nAxB P: " << aA_x_dBP.first << " " << aA_x_dBP.second;
-    std::cout << "\nPc: " << punto_codificado.first << " " << punto_codificado.second;
+    std::cout << "\naAP: (" << aAP.first << "," << aAP.second << ")";
+    std::cout << "\ndBP: (" << dBP.first << "," << dBP.second << ")";
+    std::cout << "\naA x dBP: (" << aA_x_dBP.first << "," << aA_x_dBP.second << ")";
+    std::cout << "\nPc: (" << punto_codificado.first << "," << punto_codificado.second << ")";
 
     mensaje_cifrado.push_back(sumar(punto_codificado, aA_x_dBP));
     mensaje_cifrado.push_back(aAP);
@@ -56,7 +56,11 @@ std::pair<int, int> ElGamalEliptico::codificar(int mensaje)
     while (M <= mensaje)
         M *= 2;
 
+    std::cout << "\nM: " << M;
+
     int h = primo / M;
+
+    std::cout << "\nh: " << h;
 
     int x = 0, y = 0;
     bool terminar = false;
