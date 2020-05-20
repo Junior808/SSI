@@ -1,6 +1,13 @@
 {
     "files.associations": {
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "iostream": "cpp",
+        "ctime": "cpp",
+        "algorithm": "cpp",
+        "random": "cpp",
+        "bitset": "cpp",
+        "sstream": "cpp",
+        "string": "cpp"
     },
     "terminal.integrated.shell.windows": "cmd.exe"
 }
